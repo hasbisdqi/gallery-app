@@ -15,6 +15,11 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::resource('albums', \App\Http\Controllers\AlbumController::class);
+    Route::resource('albums.photos', \App\Http\Controllers\PhotoController::class)
+        ->shallow()
+        ->except('index');
+    Route::get('photos', [\App\Http\Controllers\PhotoController::class, 'index'])->name('photos.index');
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
